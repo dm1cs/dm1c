@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+	<meta name="format-detection" content="telephone=no">
+	<!-- <style>body{opacity: 0;}</style> -->
+	<link rel="stylesheet" href="/css/style.min.css?_v=20220112232913">
+	<link rel="stylesheet" href="/css/code.css">
+	<!-- <meta name="robots" content="noindex, nofollow"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузка из Excel - DM1C</title>
+</head>
+<body>
+    <div class="wrapper">
+		<header class="header">
+			<div class="header__container header__container_new">
+				<div class="header__menu menu">
+					<nav class="menu__body">
+						<ul class="menu__list">
+							<li class="menu__item"><a href="/" class="menu__link">Главная</a></li>
+							<li class="menu__item"><a href="/#examples" class="menu__link">Примеры</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
+		<main class="page">
+			<section class="page__about about">
+				<div class="about__container">
+					<div class="about__info">
+						<h1 class="about__title title">Загрузка из <br> Microsoft Excel</h1>
+					</div>
+				</div>
+			</section>
+
+			<section class="page__top-works top-works">
+				<div class="top-works__container">
+					<div class="top-works__body">
+						<div class="top-works__title header-title">Пример</div>
+						<pre>
+							<code class="language-onec8 hljs" highlight-set="1">
+<span class="hljs-preprocessor">&НаСервере</span>
+<span class="hljs-keyword">Процедура</span> ЗагрузитьКлиентовНаСервере(Результат, ДопПараметр) <span class="hljs-keyword">Экспорт</span>
+	
+	<span class="hljs-keyword">Если НЕ</span>(Результат <span class="hljs-special_symbols">=</span> Неопределено) <span class="hljs-keyword">Тогда</span>    
+	    СсылкаНаФайл <span class="hljs-special_symbols">=</span> Результат<span class="hljs-special_symbols">[</span><span class="hljs-number">0</span><span class="hljs-special_symbols">]</span>;
+	Иначе                                
+	    Сообщить("Файл не выбран!");
+	    Возврат;
+	КонецЕсли; 
+	
+	ТабДок = Новый ТабличныйДокумент;
+	ТабДок.Прочитать(СсылкаНаФайл);
+	
+	Для Строка = 2  По ТабДок.ВысотаТаблицы Цикл
+		ДанныеФИО = Справочники.Клиенты.СоздатьЭлемент();		
+		ДанныеФИО.Наименование = ТабДок.Область(Строка,2).Текст;
+			
+	   ДанныеФИО.Записать();
+	   Сообщить("Информация добавлена" + ДанныеФИО.Наименование); 
+   КонецЦикла; 
+   
+КонецПроцедуры
+
+&НаКлиенте
+Процедура ЗагрузитьКлиентов(Команда)
+	ВыборФайла = Новый ДиалогВыбораФайла(РежимДиалогаВыбораФайла.Открытие);
+	ВыборФайла.МножественныйВыбор = Ложь;
+	ВыборФайла.Фильтр = "Табличные документы *.xlsx | *.xlsx";
+	ВыборФайла.Показать(Новый ОписаниеОповещения("ЗагрузитьКлиентовНаСервере", ЭтотОбъект);
+КонецПроцедуры 
+
+							</code>
+						</pre>
+					</div>
+				</div>
+			</section>
+
+		</main>
+		<footer class="footer">
+			<div class="footer__container">
+				<div class="footer__copyright">Copyright ©2023 All rights reserved</div>
+			</div>
+		</footer>
+	</div>
+	<script src="/js/app.min.js?_v=20220112232913"></script>
+</body>
+</html>
