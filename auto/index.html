@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+	<meta name="format-detection" content="telephone=no">
+	<!-- <style>body{opacity: 0;}</style> -->
+	<link rel="stylesheet" href="/css/style.min.css?_v=20220112232913">
+	<link rel="stylesheet" href="/css/code.css">
+	<!-- <meta name="robots" content="noindex, nofollow"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузка из Excel - DM1C</title>
+</head>
+<body>
+    <div class="wrapper">
+		<header class="header">
+			<div class="header__container header__container_new">
+				<div class="header__menu menu">
+					<nav class="menu__body">
+						<ul class="menu__list">
+							<li class="menu__item"><a href="/" class="menu__link">Главная</a></li>
+							<li class="menu__item"><a href="/#examples" class="menu__link">Примеры</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
+		<main class="page">
+			<section class="page__about about">
+				<div class="about__container">
+					<div class="about__info">
+						<h1 class="about__title title">Автоматическая подставка <br> значений </h1>
+					</div>
+				</div>
+			</section>
+
+			<section class="page__top-works top-works">
+				<div class="top-works__container">
+					<div class="top-works__body">
+						<div class="top-works__title header-title">Пример</div>
+						<pre>
+							<code class="language-onec8 hljs" highlight-set="1">
+<span class="hljs-comment">//Получение договора</span>
+<span class="hljs-preprocessor">&НаСервере</span>
+Функция ПолучитьДоговор(Поставщик)
+    Возврат Объект.Поставщик.Договор;
+КонецФункции
+
+<span class="hljs-comment">//Автоподстановка договора</span>
+<span class="hljs-preprocessor">&НаКлиенте</span>
+Процедура ПоставщикПриИзменении(Элемент)
+    Объект.Договор = ПолучитьДоговор(Объект.Поставщик);
+КонецПроцедуры
+
+
+<span class="hljs-preprocessor">&НаСервере</span>
+Функция ПолучитьЦену(НаименованиеФурнитуры)
+    Возврат НаименованиеФурнитуры.Цена;
+КонецФункции
+
+<span class="hljs-comment">//Автоподстановка Артикула и Единицы измерения</span>
+<span class="hljs-preprocessor">&НаКлиенте</span>
+Процедура СписокТоваровНаименованиеПриИзменении(Элемент)
+    ТекСтрокаТЧ = Элементы.СписокТоваров.ТекущиеДанные;
+    ТекСтрокаТЧ.Артикул = ПолучитьАртикул(ТекСтрокаТЧ.Наименование);
+    ТекСтрокаТЧ.ЕдиницаИзмерения = ПолучитьЕдиницуИзмерения(ТекСтрокаТЧ.Наименование);
+    ТекСтрокаТЧ.Цена = ПолучитьЦену(ТекСтрокаТЧ.Наименование);
+КонецПроцедуры
+
+<span class="hljs-comment">//Авторасчет суммы</span>
+<span class="hljs-preprocessor">&НаКлиенте</span>
+Процедура СписокТоваровКоличествоПриИзменении(Элемент)
+    ТекСтрокаТЧ = Элементы.СписокТоваров.ТекущиеДанные;
+    ТекСтрокаТЧ.Сумма = ТекСтрокаТЧ.Количество * ТекСтрокаТЧ.Цена;
+КонецПроцедуры
+
+							</code>
+						</pre>
+					</div>
+				</div>
+			</section>
+
+		</main>
+		<footer class="footer">
+			<div class="footer__container">
+				<div class="footer__copyright">Copyright ©2023 All rights reserved</div>
+			</div>
+		</footer>
+	</div>
+	<script src="/js/app.min.js?_v=20220112232913"></script>
+</body>
+</html>
